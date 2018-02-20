@@ -6,6 +6,11 @@ CAFFE_MPI_PREFIX=${MPI_PREFIX:-""}
 git submodule update --remote
 
 # Load Caffe dependencies
+# sudo apt-get -qq install libprotobuf-dev libleveldb-dev libsnappy-dev libhdf5-serial-dev protobuf-compiler libatlas-base-dev
+# sudo apt-get -qq install --no-install-recommends libboost1.55-all-dev
+# sudo apt-get -qq install libgflags-dev libgoogle-glog-dev liblmdb-dev
+# sudo apt-get -qq install libzip-dev
+
 module purge
 module load boost/intel/1.62.0
 module load cmake/intel/3.7.1
@@ -22,11 +27,9 @@ module load protobuf/intel/3.1.0
 module load hdf5/intel/1.10.0p1
 module load leveldb/intel/1.19
 module load snappy/intel/1.1.3
-module show lapack/gnu/3.7.0
 
 export PATH=$PATH:$GFLAGS_LIB:$GFLAGS_INC:$GLOG_LIB:$GLOG_INC:$PROTOBUF_INC:$PROTOBUF_LIB:
 export PATH=$PATH:$LMDB_LIB:$LMDB_INC:$LEVELDB_INC:$LEVELDB_LIB:$SNAPPY_INC:$SNAPPY_LIB
-export PATH=$PATH:$LAPACK_INC:$LAPACK_LIB
 
 
 
