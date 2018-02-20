@@ -5,13 +5,18 @@ CAFFE_MPI_PREFIX=${MPI_PREFIX:-""}
 # update the submodules: Caffe and Dense Flow
 git submodule update --remote
 
-# install Caffe dependencies
-sudo apt-get -qq install libprotobuf-dev libleveldb-dev libsnappy-dev libhdf5-serial-dev protobuf-compiler libatlas-base-dev
-sudo apt-get -qq install --no-install-recommends libboost1.55-all-dev
-sudo apt-get -qq install libgflags-dev libgoogle-glog-dev liblmdb-dev
-
-# install Dense_Flow dependencies
-sudo apt-get -qq install libzip-dev
+# Load Caffe dependencies
+module purge
+module load boost/intel/1.62.0
+module load cmake/intel/3.7.1
+module load opencv/intel/2.4.13.2
+module load libzip/intel/1.4.0
+export PATH=$PATH:/share/apps/libzip/1.4.0/intel/lib:
+module load boost/intel/1.62.0
+module load openmpi/intel/1.8.8
+module load gflags/intel/2.2.0
+module load glog/intel/0.3.4
+module load protobuf/intel/3.1.0
 
 # install common dependencies: OpenCV
 # adpated from OpenCV.sh
