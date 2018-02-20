@@ -57,7 +57,8 @@ echo "Building Dense Flow"
 cd lib/dense_flow
 [[ -d build ]] || mkdir build
 cd build
-OpenCV_DIR=../../../3rd-party/opencv-$version/build/ cmake .. -DCUDA_USE_STATIC_CUDA_RUNTIME=OFF
+OpenCV_DIR=../../../3rd-party/opencv-$version/build/
+cmake -D CUDA_USE_STATIC_CUDA_RUNTIME=OFF ..
 if make -j ; then
     echo "Dense Flow built."
 else
