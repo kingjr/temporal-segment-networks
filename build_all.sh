@@ -14,9 +14,21 @@ module load libzip/intel/1.4.0
 export PATH=$PATH:/share/apps/libzip/1.4.0/intel/lib:
 module load boost/intel/1.62.0
 module load openmpi/intel/1.8.8
+#openmpi/gnu/cuda/2.0.3
 module load gflags/intel/2.2.0
 module load glog/intel/0.3.4
+module load lmdb/intel/0.9.19
 module load protobuf/intel/3.1.0
+module load hdf5/intel/1.10.0p1
+module load leveldb/intel/1.19
+module load snappy/intel/1.1.3
+module show lapack/gnu/3.7.0
+
+export PATH=$PATH:$GFLAGS_LIB:$GFLAGS_INC:$GLOG_LIB:$GLOG_INC:$PROTOBUF_INC:$PROTOBUF_LIB:
+export PATH=$PATH:$LMDB_LIB:$LMDB_INC:$LEVELDB_INC:$LEVELDB_LIB:$SNAPPY_INC:$SNAPPY_LIB
+export PATH=$PATH:$LAPACK_INC:$LAPACK_LIB
+
+
 
 # install common dependencies: OpenCV
 # adpated from OpenCV.sh
@@ -72,9 +84,11 @@ cd ../../caffe-action
 [[ -d build ]] || mkdir build
 cd build
 if [ "$CAFFE_USE_MPI" == "MPI_ON" ]; then
+# not supported by JR
 OpenCV_DIR=../../../3rd-party/opencv-$version/build/ cmake .. -DUSE_MPI=ON -DMPI_CXX_COMPILER="${CAFFE_MPI_PREFIX}/bin/mpicxx" -DCUDA_USE_STATIC_CUDA_RUNTIME=OFF
 else
-OpenCV_DIR=../../../3rd-party/opencv-$version/build/ cmake .. -DCUDA_USE_STATIC_CUDA_RUNTIME=OFF
+OpenCV_DIR=../../../3rd-party/opencv-$version/build/
+cmake -D CUDA_USE_STATIC_CUDA_RUNTIME=OFF ..
 fi
 if make -j32 install ; then
     echo "Caffe Built."
